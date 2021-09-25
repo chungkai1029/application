@@ -5,26 +5,97 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Debounce Practice</title>
+    <style>
+        /* layout relevant styles */
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+        main {
+            display: grid;
+            height: 100%;
+            grid-template-columns: auto 33% auto;
+            grid-template-rows: auto auto auto;
+        }
+        .card {
+            display: grid;
+            grid-template-columns: 100%;
+            grid-column: 2;
+            grid-row: 2;
+        }
+        /* other styles */
+        .card {
+            padding: 50px;
+            color: #fff;
+            border-radius: 20px;
+            box-sizing: border-box;
+            font-family: Roboto, sans-serif;
+            background: rgb(0,174,239);
+            background: linear-gradient(135deg, rgba(0,174,239,1) 20%, rgba(45,56,138,1) 100);
+        }
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: lighter;
+            text-align: center;
+        }
+        input {
+            width: auto;
+            height: 50px;
+            border-radius: 25px;
+            border: 0;
+            line-height: 50px;
+            padding: 0 20px;
+            font-size: 1.5rem;
+            font-family: Roboto, sans-serif;
+            outline: none;
+        }
+        button {
+            width: 240px;
+            height: 50px;
+            border-radius: 25px;
+            border: 2px solid #fff;
+            line-height: 50px;
+            text-align: center;
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+            margin-top: 10px;
+            position: relative;
+            box-sizing: border-box;
+            justify-self: center;
+            background: transparent;
+            cursor: pointer;
+            font-family: Roboto, sans-serif;
+            outline: none;
+        }
+    </style>
 </head>
 <body>
-    <button type="button" onclick="debounceFunc()">Reset</button>
-</body>
-<script>
-    function debounce(func, delay = 3000) {
-        let timer;
-        return function (args) {
-            if(!timer) {
-                func.apply(this, args);
+    <main>
+        <div class="card blue">
+            <h1>Debounce Practice</h1>
+            <button type="button" onclick="debounceFunc()">Reset</button>
+        </div>
+    </main>
+    <script>
+        function debounce(func, delay = 3000) {
+            let timer;
+            return function (args) {
+                if(!timer) {
+                    func.apply(this, args);
+                }
             }
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                timer = undefined;
+            }, delay);
         }
-        clearTimeout(timer);
-        timer = setTimeout(function() {
-            timer = undefined;
-        }, delay);
-    }
-    function resetInput() {
-        console.log("Reset timer.");
-    }
-    const debounceFunc = debounce(() => resetInput());
-</script>
+        function resetInput() {
+            console.log("Reset timer.");
+        }
+        const debounceFunc = debounce(() => resetInput());
+    </script>
+</body>
 </html>
