@@ -76,26 +76,26 @@
     <main>
         <div class="card blue">
             <h1>Debounce Practice</h1>
-            <button type="button" onclick="debounceFunc()">Reset</button>
+            <button id="debounceTime">Reset</button>
         </div>
     </main>
     <script>
-        function debounce(func, delay = 3000) {
+        let button = document.getElementById("debounceTime");
+        function debounce(func, delay) {
             let timer;
-            return function (args) {
-                if(!timer) {
+            return function() {
+                const args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(function() {
                     func.apply(this, args);
-                }
+                }, delay);
             }
-            clearTimeout(timer);
-            timer = setTimeout(function() {
-                timer = undefined;
-            }, delay);
         }
-        function resetInput() {
-            console.log("Reset timer.");
+        function alertMessage() {
+            alert("Timer over 3 seconds!!");
         }
-        const debounceFunc = debounce(() => resetInput());
+        const debounceFunc = debounce(alertMessage, 3000);
+        button.addEventListener("click", debounceFunc);
     </script>
 </body>
 </html>
